@@ -68,4 +68,19 @@ tabela <- table(cut(diasSemChuva$Porto,breaks=nc)) # Faz a tabela em 7 classes d
 
 prop.table(tabela)
 
+# Alinea h
+histDiasSemChuvaPorto <- hist(diasSemChuva$Porto, main="Dias sem chuva no Porto", xlab="Dias sem chuva de 1960 a 2020")
+#Aceder aos detalhes da representação do gráfico
+histDiasSemChuvaPorto$breaks 
+freqAbsPorto <- histDiasSemChuvaPorto$counts # frequência absoluta
+freqRelPorto <- freqAbsPorto/sum(freqAbsPorto) # frequência relativa
 
+
+# Evolução temporal - alínea i
+
+evolucaoTemporalPorto <- ts(diasSemChuva$Porto, start = 1960)
+evolucaoTemporalFaro <- ts(diasSemChuva$Faro, start = 1960)
+
+ts.plot(evolucaoTemporalPorto, evolucaoTemporalFaro, lty=c(1:2), main="Dias sem chuva",
+        ylab="Numero de dias", xlab="Ano")
+legend("bottomleft", legend=c("Porto", "Faro"), lty=c(1:2))
