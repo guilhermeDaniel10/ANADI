@@ -97,6 +97,29 @@ mu0Atual <- 0
 
 t.test(rendas, rendas_rel, mu=mu0, conf.level = 1-alfa, var.equal = T, paired = F)
 
+## ALINEA 5
+ 
+Quoc_a <- c(1.0,0.8,1.9,1.1,2.7,NA)
+Quoc_b <- c(1.7,2.5,3.0,2.2,3.7,1.9)
+Quoc_c <- c(1.0,1.3,3.2,1.4,1.3,2.0)
+Quoc_d <- c(3.8,2.8,1.9,3.0,2.5,NA)
 
+dados_quoc <- as.data.frame(cbind(Quoc_a,Quoc_b,Quoc_c,Quoc_d))
+
+boxplot(dados_quoc)
+
+# Admitindo a normalidade e independencia, usaoms teste ANOVA:
+# H0: miu1 = miu2 = miu3 = miu4 (os quocientes dos cusots com I&D sao semelhantes entres as empresas)
+# H1: Existe pelo menos 1 (i,j), i!=j, tal que miu_i!=miu_k, para i e j em {1,2,3,4}
+
+Empresa <- c(rep("Emp_a",6),rep("Emp_b",6),rep("Emp_c",6),rep("Emp_d",6))
+Quoc <-c(Quoc_a,Quoc_b,Quoc_c,Quoc_d)
+Mdados <- data.frame(Empresa,Quoc)
+View(Mdados)
+result <- aov(Quoc ~ Empresa, data = Mdados)
+summary (result)
+
+# Como p=0.0359 < alfa, rejeita-se H0. Há evidencias de que pelo menos uma empresa
+#tem custos diferentes das restantes, para um nivel de significancia de 0.05
 
   
