@@ -184,3 +184,52 @@ capital <- c(31,40,49,20,21,34,54,52,28,21,24,34)
 
 # a)
 plot(rendimento,capital)
+
+reg2 <- lm(capital ~ rendimento)
+summary(reg2)
+abline(reg2)
+# Os dados são adequados a um modelo linear
+
+# 6)b)
+x0 <- data.frame(rendimento=20)
+predict(reg2,x0)
+# O modelo preve um seguro de vida medio de 
+
+#6)c
+
+# Residuos vs valores ajustados
+par(mfrow=c(2,1))
+plot(fitted(reg2), residuals(reg2))
+abline(h=0)
+# Amostra pequena dificil concluir se ha um padrao ou nao 
+
+# Teste à variancia (n=12<30)
+medRend <- median(Rend); mdRend
+var.test(residuals(reg2)[Rend>medRend], residuals(reg2)[Rend<medRend])
+# nao se rejeita H0 (p=0.806), ou seja,
+# nao ha evidencia de que as variancias nao sejam iguais 
+
+# Independencia dos residuos
+# H0: Os residuos sao independentes vs H1: os residuos nao sao independentes
+
+library(car)
+durninWatsonTest(reg2)
+# Como p>0.8>0.05 
+
+#Temis entao evidencia de que os residuos cumprem os 2 pressupostos de 
+#homocedasticidade
+
+#6)d) Normalidade de Residuos de media zero
+dev.off()
+qqnorm(residuals(reg2))
+qqline(residuals(reg2))
+
+t.test(residuals(reg2),mu=0, alternative="two.sided")
+
+
+# Exercicio 7
+library(readr)
+ExemploMontegomery <- read_delim("C:/Users/Guilherme/Desktop/ANADI_REPO/ANADI/TP4/ExemploMontegomery.csv", 
+                                 delim = ";", escape_double = FALSE, locale = locale(decimal_mark = ","), 
+                                 trim_ws = TRUE)
+# Observar os dados que temos 
