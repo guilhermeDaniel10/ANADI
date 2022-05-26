@@ -109,7 +109,7 @@ accuracy <- function(cfM) {
   sum(diag(cfM))/sum(cfM)
 }
 
-accuracy
+accuracy(cfmatrix)
 
 rmse <- function(test, predict) {
   sqrt(mean((test - predict) ^ 2))
